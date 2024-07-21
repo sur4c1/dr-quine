@@ -1,9 +1,9 @@
 all:		colleen/Colleen grace/Grace sully/Sully
 
 clean:
-	rm -rf colleen/ grace/ sully/
 
 fclean:		clean
+	rm -rf colleen/ grace/ sully/
 
 re:			fclean all
 
