@@ -64,7 +64,7 @@ _start:
 	syscall
 
 SECTION .data
-magic			db, "?",	0
+magic:			db	"extern	printfRextern	stdoutRextern	fflushRRSECTION .textRglobal	_startRRnoop:R	retRR_start:R	mov		rbx,	magicRR	loop_start:R		cmp		byte [rbx],	0R		je		loop_endRR		cmp		byte [rbx], 63R		jne		question_mark_endR			mov		rdi,	fmt_strR			mov		rsi,	magicR			xor		rax, raxR			call	printfR			jmp		end_incrementR		question_mark_end:RR		cmp		byte [rbx],	82R		jne		upper_n_endR			mov		rdi,	fmt_chrR			mov		rsi,	10 ;; newlineR			xor		rax, raxR			call	printfR			jmp		end_incrementR		upper_n_end:RR		cmp		byte [rbx],	39R		jne		single_quote_endR			mov		rdi,	fmt_chrR			mov		rsi,	34 ;;double quotesR			xor		rax, raxR			call	printfR			jmp		end_incrementR		single_quote_end:RR		mov		rdi,	fmt_chrR		xor		rsi,	rsiR		mov		sil,	byte [rbx]R		xor		rax, raxR		call	printfRR		end_increment:R			inc	rbxR			jmp	loop_startR	loop_end:RR	call	noopRR	mov		rdi,	[stdout]R	call	fflushRR	;; exit(0)R	mov		rax, 60R	xor		rdi,	rdiR	syscallRRSECTION .dataRmagic:			db	'?',	0Rfmt_str:		db	'%s',	0Rfmt_chr:		db	'%c',	0RR",	0
 fmt_str:		db	"%s",	0
 fmt_chr:		db	"%c",	0
 
