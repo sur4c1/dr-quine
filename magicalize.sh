@@ -1,3 +1,3 @@
 #!bash
 
-sed -i "s/?/$(cat $1 | tr '\n' 'R' | tr '"' "'")/g" $1
+sed -i "s-?-$(cat $1 | tr '\n' 'N' | tr '"' "'")-g" $1
