@@ -20,7 +20,7 @@ grace/Grace:		Grace.s
 
 sully/Sully:		Sully.s
 	mkdir -p sully
-	nasm -f elf64 Sully.s -o sully/Sully.o
-	ld -melf_x86_64 sully/Sully.o -e sully/Sully -dynamic-linker /lib/ld-linux.so.2
+	nasm -f elf64 Sully.s -o Sully.o
+	ld -m elf_x86_64 Sully.o -o sully/Sully  -e _start -dynamic-linker /lib64/ld-linux-x86-64.so.2 -lc
 
 .PHONY:		all clean fclean re
