@@ -7,6 +7,7 @@ extern	dprintf, perror, sprintf, __errno_location, system
 	_start:
 
 		mov		r14,	i
+  		mov		r13,	i
 		dec		r14
 		xor		rax,	rax
 		mov 	rdi,	buffer
@@ -83,7 +84,7 @@ extern	dprintf, perror, sprintf, __errno_location, system
 		mov		rax,	3
 		syscall
 
-		cmp	r14,	0
+		cmp	r13,	0
 		jl	end
 
 		;; system nasm
