@@ -1,22 +1,20 @@
-all:		colleen/Colleen grace/Grace sully/Sully
+all:	Colleen Grace Sully
 
 clean:
+	rm -rf Grace_kid* Sully_*
 
 fclean:		clean
-	rm -rf colleen/ grace/ sully/
+	rm -rf Colleen Grace Sully
 
 re:			fclean all
 
-colleen/Colleen:	Colleen.c
-	mkdir -p colleen
-	gcc -Wall -Wextra -Werror Colleen.c -o colleen/Colleen
+Colleen:	Colleen.c
+	gcc -Wall -Wextra -Werror Colleen.c -o Colleen
 
-grace/Grace:		Grace.c
-	mkdir -p grace
-	gcc -Wall -Wextra -Werror Grace.c -o grace/Grace
+Grace:		Grace.c
+	gcc -Wall -Wextra -Werror Grace.c -o Grace
 
-sully/Sully:		Sully.c
-	mkdir -p sully
-	gcc -Wall -Wextra -Werror Sully.c -o sully/Sully
+Sully:		Sully.c
+	gcc -Wall -Wextra -Werror Sully.c -o Sully
 
 .PHONY:		all clean fclean re
