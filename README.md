@@ -1,26 +1,44 @@
-# Dr\_Quine
-A 42 project about `quine`, a classical programing exercice about self-reproducing programs.
-The requiered langages are C and x86-64 Assembly. And for the bonuses, I chose to make it in NodeJS as well.
+# Understanding the subject
 
-## Project outline 
-### Colleen
-It is the easier one. A simple quine with some restrictions.
+## Colleen
 
-### Grace
-This one is a twist on the quine idea : instead of outputing the content of the file, I must create a new file, with the same content.
+Colleen is a simple program that prints its own source code. It is a simple quine.
 
-### Sully
-This one is the last exercice. I am asked to create a program that create a near-copy of it's source code, compile it, and exectute it. This process goes on until the variable that we change in each iterations reaches 0.
+-   `Colleen.c`
+    -   Compile into `Colleen`
+        -   Prints the source code of `Colleen.c`
 
-## My approach on the matter
-### Pseudo Langage
-My first thought, inspired via the meme `printf(s, s);`, was to create an interpreter for a langage that included a quine in itself.
+## Grace
 
-#### The langage commands
-- `'`: Print a `"`
-- `?`: Print the source code of the langage
-- \*: Print the current character
+Grace is a step harder : it must create a file named Grace_kid.c which is a copy of the source code of the file.
 
-#### Example
+-   `Grace.c`
+    -   Compile into `Grace`
+        -   Creates `Grace_kid.c`
+            -   has the same content as `Grace.c`
 
-`abc?'123'` would print `abcabc?'123'"123"`.
+## Sully
+
+Sully is another step harder : it create a file with the source code, like Grace, but slightly modified to decrease a variable, and then compile this new source code and run the resulting program, which will create another file, and so on.
+
+-   `Sully.c` - Compile into `Sully` - Creates `Sully_5.c` - Compile `Sully_5.c` into `Sully_5` - Run `Sully_5` - Creates `Sully_4.c` - Compile `Sully_4.c` into `Sully_4` - Run `Sully_4` - ...
+    When running `Sully` in a otherwise empty directory, it should result in 13 files:
+-   `Sully`
+-   `Sully_X.c` for `X` in `[0, 5]`
+-   `Sully_X` for `X` in `[0, 5]`
+
+# My approach on the matter
+
+For each of the three programs, I will use the same approach: I will create a string that contains the source code "banalized" (special characters replaced by a custom escape) and the string itself represented by a '?'.
+The I will iterate over the string and replace the escape by the corresponding character in the source code.
+Finally, I will print the string or write it to a file. For `Sully`, I will also compile and run the resulting file.
+
+## Escape characters
+
+-   'Q' represents the single quote character (')
+-   'D' represents the double quote character (")
+-   'S' represents the slash character (/)
+-   'B' represents the backslash character (\\)
+-   'N' represents the newline character (\n)
+-   'T' represents the tab character (\t)
+-   '?' represents the whole string
