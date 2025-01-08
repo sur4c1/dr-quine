@@ -10,7 +10,6 @@
 
 enum e_escape {
 	upper_d = 68,
-	upper_s = 83,
 	upper_b = 66,
 	upper_n = 78,
 	upper_t = 84,

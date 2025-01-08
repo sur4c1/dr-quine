@@ -1,18 +1,21 @@
-CC		=	clang
-CFLAGS	=	-Wall -Wextra -Werror
+NASM	=	nasm -f elf64 -g
+LD		= 	ld -m elf_x86_64
+LDFLAGS	=	-e _start -dynamic-linker /lib64/ld-linux-x86-64.so.2 -lc
 
 all: Colleen Grace Sully
 
 Colleen: Colleen.s
-	$(CC) $(CFLAGS) Colleen.s -o Colleen
+	$(NASM) Colleen.s
+	$(LD) -o Colleen Colleen.o $(LDFLAGS)
 
 Grace: Grace.s
-	$(CC) $(CFLAGS) Grace.s -o Grace
+	$(NASM) Grace.s
 
 Sully: Sully.s
-	$(CC) $(CFLAGS) Sully.s -o Sully
+	$(NASM) Sully.s
 
 clean:
+	rm -f Colleen.o Grace.o Sully.o
 
 fclean: clean
 	rm -f Colleen Grace Sully Grace_kid.c Sully_*
