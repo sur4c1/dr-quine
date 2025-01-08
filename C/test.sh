@@ -35,8 +35,8 @@ else
 fi
 # check if all the .c files are the same with only the line 'int i = 5;' that changes
 for i in {0..5}; do
-	sed "s/int i = 5;/int i = ~;/" Sully_$i.c > Sully_$i.c.tmp
-	if ! cmp -s Sully_$i.c.tmp Sully_$i.c; then
+	sed "s/i = $i;/i = 5;/" Sully_$i.c > Sully_$i.c.tmp
+	if ! cmp -s Sully_$i.c.tmp ../Sully.c; then
 		printf "$KO"
 		break
 	else
