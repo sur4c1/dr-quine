@@ -6,10 +6,10 @@ all: Colleen Grace Sully
 Colleen: Colleen.c
 	$(CC) $(CFLAGS) Colleen.c -o Colleen
 
-Grace:
+Grace: Grace.c
 	$(CC) $(CFLAGS) Grace.c -o Grace
 
-Sully:
+Sully: Sully.c
 	$(CC) $(CFLAGS) Sully.c -o Sully
 
 clean:
