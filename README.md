@@ -21,8 +21,18 @@ Grace is a step harder : it must create a file named Grace_kid.c which is a copy
 
 Sully is another step harder : it create a file with the source code, like Grace, but slightly modified to decrease a variable, and then compile this new source code and run the resulting program, which will create another file, and so on.
 
--   `Sully.c` - Compile into `Sully` - Creates `Sully_5.c` - Compile `Sully_5.c` into `Sully_5` - Run `Sully_5` - Creates `Sully_4.c` - Compile `Sully_4.c` into `Sully_4` - Run `Sully_4` - ...
-    When running `Sully` in a otherwise empty directory, it should result in 13 files:
+-   `Sully.c`
+    -   Compile into `Sully`
+        -   Creates `Sully_5.c`
+        -   Compile `Sully_5.c` into `Sully_5`
+        -   Run `Sully_5`
+            -   Creates `Sully_4.c`
+            -   Compile `Sully_4.c` into `Sully_4`
+            -   Run `Sully_4`
+                -   ...
+
+When running `Sully` in a otherwise empty directory, it should result in 13 files:
+
 -   `Sully`
 -   `Sully_X.c` for `X` in `[0, 5]`
 -   `Sully_X` for `X` in `[0, 5]`
