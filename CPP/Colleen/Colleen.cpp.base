@@ -1,0 +1,41 @@
+#include <iostream>
+
+/*
+	Useless function per subject recommendations
+*/
+static void noop(void) {}
+
+int main(void)
+{
+	std::string magic_string = "?";
+	std::string c = " ";
+
+	for (auto chr : magic_string)
+	{
+		switch (static_cast<int>(chr))
+		{
+		case 0x3f:
+			std::cout << magic_string;
+			break;
+		case 0x27:
+			c[0] = static_cast<char>(0x22);
+			std::cout << c;
+			break;
+		case 0x4e:
+			std::cout << std::endl;
+			break;
+		case 0x54:
+			c[0] = static_cast<char>(0x09);
+			std::cout << c;
+			break;
+		default:
+			std::cout << chr;
+			break;
+		}
+	}
+
+	/*
+		Useless function call per subject recommendation
+	*/
+	noop();
+}
