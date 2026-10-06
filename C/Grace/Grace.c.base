@@ -17,7 +17,7 @@
 		size_t i;                                                  \
 		int fd;                                                    \
                                                                    \
-		fd = open(target_file, 0102, 0644);                        \
+		fd = open(target_file, 01102, 0644);                        \
 		i = 0;                                                     \
 		while (magic_string[i])                                    \
 		{                                                          \
