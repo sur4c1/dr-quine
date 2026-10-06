@@ -1,0 +1,81 @@
+global main
+
+; Comment "outside"
+section .text
+
+%macro chr 1
+		pop rax
+		push %1
+		mov rsi, rsp
+		mov rdx, 1
+		jmp write_call
+%endmacro
+%macro entry 0
+main:
+	; Comment "inside"
+	mov rdi, child
+	mov rsi, 01102o
+	mov rdx, 0644o
+	mov rax, 2
+	syscall
+	test rax, rax
+	js end_pgr
+	mov rdi, rax
+
+	mov r12, magic
+	push 0
+
+	loop:
+		mov al, byte [r12]
+		test al, al
+		jz end_loop
+
+		cmp al, 0x3f
+		jne end_qm
+		mov rsi, magic
+		mov rdx, len
+		jmp write_call
+		end_qm:
+
+		cmp al, 0x27
+		jne end_quote
+		chr 0x22
+		end_quote:
+
+		cmp al, 0x4e
+		jne end_nl
+		chr 0x0a
+		end_nl:
+
+		cmp al, 0x54
+		jne end_tab
+		chr 0x09
+		end_tab:
+
+		cmp al, 0x53
+		jne end_sq
+		chr 0x3b
+		end_sq:
+
+		mov rsi, r12
+		mov rdx, 1
+
+		write_call:
+		mov rax, 1
+		syscall
+
+		inc r12
+		jmp loop
+	end_loop:
+	pop rax
+	xor rax, rax
+	end_pgr:
+	ret
+%endmacro
+
+entry
+
+section .data
+magic: db "?", 0
+len: equ $ - magic - 1
+child: db "Grace_kid.s", 0
