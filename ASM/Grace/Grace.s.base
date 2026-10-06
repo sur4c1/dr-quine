@@ -3,6 +3,8 @@ global main
 ; Comment "outside"
 section .text
 
+%macro noop 0
+%endmacro
 %macro chr 1
 		pop rax
 		push %1
