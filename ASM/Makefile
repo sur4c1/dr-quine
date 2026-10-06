@@ -3,7 +3,7 @@ NASM = nasm
 CFLAGS = -Wall -Werror -Wextra
 
 %.s: %.s.base
-	< $< sed "s|?|$$(< $< tr '"\n\t\\;' "'NTBS"| sed "s|int i = [0-9]|Y|")|"  > $@
+	< $< sed "s|?|$$(< $< tr '"\n\t\\;' "'NTBS"| sed "s|mov r12b, [0-9]|Y|")|"  > $@
 
 %.o: %.s
 	$(NASM) -f elf64  $< -o $@
