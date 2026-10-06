@@ -1,0 +1,78 @@
+global main
+
+; Comment "outside"
+section .text
+noop:
+	ret
+
+main:
+	; Comment "inside"
+	call noop
+	mov r12, magic
+	push 0
+	loop:
+		mov al, byte [r12]
+		test al, al
+		jz end_loop
+
+		mov rdi, 1
+
+		cmp al, 0x3f
+		jne end_qm
+		mov rsi, magic
+		mov rdx, len
+		jmp write_call
+		end_qm:
+
+		cmp al, 0x27
+		jne end_quote
+		pop rax
+		push 0x22
+		mov rsi, rsp
+		mov rdx, 1
+		jmp write_call
+		end_quote:
+
+		cmp al, 0x4e
+		jne end_nl
+		pop rax
+		push 0x0a
+		mov rsi, rsp
+		mov rdx, 1
+		jmp write_call
+		end_nl:
+
+		cmp al, 0x54
+		jne end_tab
+		pop rax
+		push 0x09
+		mov rsi, rsp
+		mov rdx, 1
+		jmp write_call
+		end_tab:
+
+		cmp al, 0x53
+		jne end_sq
+		pop rax
+		push 0x3b
+		mov rsi, rsp
+		mov rdx, 1
+		jmp write_call
+		end_sq:
+
+		mov rsi, r12
+		mov rdx, 1
+
+		write_call:
+		mov rax, 1
+		syscall
+
+		inc r12
+		jmp loop
+	end_loop:
+	pop rax
+	xor rax, rax
+	ret
+section .data
+magic: db "?", 0
+len: equ $ - magic - 1
