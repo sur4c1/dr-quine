@@ -1,5 +1,7 @@
 global main
 
+extern system
+
 section .text
 
 %macro chr 1
@@ -10,6 +12,7 @@ section .text
 		jmp write_call
 %endmacro
 main:
+	push rbp
 	mov r12b, 5
 	add r12b, 0x30
 
@@ -20,8 +23,11 @@ main:
 
 	mov byte [child + 6], r12b
 	mov byte [ctarget + 8], r12b
-	mov byte [command + 9], r12b
-	mov byte [command + 22], r12b
+	mov byte [command + 20], r12b
+	mov byte [command + 33], r12b
+	mov byte [command + 48], r12b
+	mov byte [command + 61], r12b
+	mov byte [command + 78], r12b
 
 	mov rdi, child
 	mov rsi, 01102o
@@ -62,11 +68,6 @@ main:
 		chr 0x09
 		end_tab:
 
-		cmp al, 0x53
-		jne end_sq
-		chr 0x3b
-		end_sq:
-
 		cmp al, 0x59
 		jne end_x
 		mov rsi, x_str
@@ -90,10 +91,19 @@ main:
 	mov rax, 3
 	syscall
 
-	; exec
+	cmp r12b, 0x30
+	jl alldone
+	mov rdi, command
+	call system
+	cmp r12b, 0x30
+	jle alldone
+	mov rdi, ctarget
+	call system
 
+	alldone:
 	xor rax, rax
 	end_pgr:
+	pop rbp
 	ret
 
 section .data
@@ -101,7 +111,7 @@ magic: db "?", 0
 len: equ $ - magic - 1
 child: db "Sully_X.s", 0
 ctarget: db "./Sully_X", 0
-command: db "cc Sully_X.c -o Sully_X"
+command: db "nasm -f elf64 Sully_X.s -o Sully_X.o ", 0x3b , " cc Sully_X.o -o Sully_X ", 0x3b," rm -rf Sully_X.o", 0
 file: db __FILE__, 0
 file_len: equ $ - file - 1
 x_str: db "mov r12b, ", 0
