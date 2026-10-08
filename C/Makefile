@@ -42,7 +42,7 @@ re: fclean all
 
 sre: sclean all
 
-.DEFAULT_GOAL: all
+.DEFAULT_GOAL := all
 
 .PHONY: clean fclean sclean re all
 
